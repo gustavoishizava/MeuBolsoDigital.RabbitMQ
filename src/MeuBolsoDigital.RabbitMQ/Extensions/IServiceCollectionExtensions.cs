@@ -18,7 +18,7 @@ namespace MeuBolsoDigital.RabbitMQ.Extensions
             if (int.TryParse(configuration["RabbitMqConfiguration:Port"], out int port))
                 connectionFactory.Port = port;
 
-            var uri = configuration["Uri"];
+            var uri = configuration["RabbitMqConfiguration:Uri"];
             if (!string.IsNullOrEmpty(uri))
                 connectionFactory.Uri = new Uri(uri);
 
