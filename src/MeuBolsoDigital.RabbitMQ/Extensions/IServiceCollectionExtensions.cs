@@ -15,6 +15,8 @@ namespace MeuBolsoDigital.RabbitMQ.Extensions
                 Password = configuration["RabbitMqConfiguration:Password"]
             });
 
+            services.AddSingleton<IRabbitMqConnection, RabbitMqConnection>();
+
             return services;
         }
     }

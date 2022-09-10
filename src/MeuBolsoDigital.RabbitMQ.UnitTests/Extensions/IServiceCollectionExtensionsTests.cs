@@ -20,7 +20,9 @@ namespace MeuBolsoDigital.RabbitMQ.UnitTests.Extensions
 
             // Assert
             var connectionFactory = serviceCollection.FirstOrDefault(x => x.ServiceType == typeof(IConnectionFactory));
+            var rabbitMqConnection = serviceCollection.FirstOrDefault(x => x.ServiceType == typeof(IRabbitMqConnection));
             Assert.NotNull(connectionFactory);
+            Assert.NotNull(rabbitMqConnection);
         }
     }
 }
