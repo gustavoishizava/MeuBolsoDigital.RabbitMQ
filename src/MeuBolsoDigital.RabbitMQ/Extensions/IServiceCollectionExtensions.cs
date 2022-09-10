@@ -12,7 +12,8 @@ namespace MeuBolsoDigital.RabbitMQ.Extensions
             {
                 HostName = configuration["RabbitMqConfiguration:HostName"],
                 UserName = configuration["RabbitMqConfiguration:UserName"],
-                Password = configuration["RabbitMqConfiguration:Password"]
+                Password = configuration["RabbitMqConfiguration:Password"],
+                Port = int.Parse(configuration["RabbitMqConfiguration:Port"])
             });
 
             services.AddSingleton<IRabbitMqConnection, RabbitMqConnection>();
