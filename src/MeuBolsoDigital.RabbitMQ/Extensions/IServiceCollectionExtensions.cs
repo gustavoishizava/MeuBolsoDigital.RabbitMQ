@@ -8,16 +8,22 @@ namespace MeuBolsoDigital.RabbitMQ.Extensions
     {
         public static IServiceCollection AddRabbitMqConnection(this IServiceCollection services, IConfiguration configuration)
         {
-            int port = int.TryParse(configuration["RabbitMqConfiguration:Port"], out int rabbitPort) ? rabbitPort : 5672;
-            services.AddSingleton<IConnectionFactory>(new ConnectionFactory
+            var connectionFactory = new ConnectionFactory
             {
                 HostName = configuration["RabbitMqConfiguration:HostName"],
                 UserName = configuration["RabbitMqConfiguration:UserName"],
-                Password = configuration["RabbitMqConfiguration:Password"],
-                Port = port
-            });
+                Password = configuration["RabbitMqConfiguration:Password"]
+            };
 
-            services.AddSingleton<IRabbitMqConnection, RabbitMqConnection>();
+            if (int.TryParse(configuration["RabbitMqConfiguration:Port"], out int port))
+                connectionFactory.Port = port;
+
+            var uri = configuration["Uri"];
+            if (!string.IsNullOrEmpty(uri))
+                connectionFactory.Uri = new Uri(uri);
+
+            services.AddSingleton<IConnectionFactory>()
+                    .AddSingleton<IRabbitMqConnection, RabbitMqConnection>();
 
             return services;
         }
