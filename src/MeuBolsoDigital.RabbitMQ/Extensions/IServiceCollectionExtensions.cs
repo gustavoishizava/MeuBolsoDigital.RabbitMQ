@@ -22,7 +22,7 @@ namespace MeuBolsoDigital.RabbitMQ.Extensions
             if (!string.IsNullOrEmpty(uri))
                 connectionFactory.Uri = new Uri(uri);
 
-            services.AddSingleton<IConnectionFactory>()
+            services.AddSingleton<IConnectionFactory>(connectionFactory)
                     .AddSingleton<IRabbitMqConnection, RabbitMqConnection>();
 
             return services;
